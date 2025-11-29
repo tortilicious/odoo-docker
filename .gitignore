@@ -14,15 +14,10 @@ postgres_data/*
 
 # Odoo - Almacenamiento de archivos subidos por usuarios
 odoo_filestore/*
-!odoo_filestore/.gitkeep
+
 
 # Odoo - Información de sesiones de usuarios
 odoo_sessions/*
-!odoo_sessions/.gitkeep
-
-# Addons
-addons/*
-!addons/.gitkeep
 
 # ============================================================================
 # PYTHON - Archivos compilados y entornos virtuales

@@ -69,20 +69,45 @@ El proceso de creación tarda aproximadamente 60 segundos.
 
 ## Estructura del Proyecto
 
+### Estructura Completa Esperada
+
+Esta es la estructura que verás después de clonar el repositorio y ejecutar `docker compose up -d`:
+
 ```
 odoo18-docker/
-├── docker-compose.yml          # Configuración de servicios
-├── .env.example                # Plantilla de variables (público)
-├── .env                        # Variables locales (privado, en .gitignore)
+├── docker-compose.yml          # Configuración de servicios Docker
+├── .env.example                # Plantilla de variables de entorno (público)
+├── .env                        # Variables locales (privado, creado con: cp .env.example .env)
 ├── .gitignore                  # Archivos ignorados por Git
 ├── README.md                   # Este archivo
+│
 ├── addons/                     # Módulos personalizados de Odoo
-│   └── .gitkeep
-└── postgres_data/              # Datos de PostgreSQL (no versionado)
-    └── .gitkeep
+│   └── .gitkeep                # Placeholder para mantener la estructura
+│
+├── postgres_data/              # Base de datos PostgreSQL (creado automáticamente por Docker)
+│   └── (archivos de BD)        # NO versionado en Git
+│
+├── odoo_filestore/             # Archivos subidos por usuarios (creado automáticamente por Docker)
+│   └── (archivos subidos)      # NO versionado en Git
+│
+└── odoo_sessions/              # Información de sesiones (creado automáticamente por Docker)
+    └── (datos temporales)      # NO versionado en Git
 ```
 
-Los módulos personalizados deben colocarse en la carpeta `addons/`. Cada módulo debe contener un archivo `__manifest__.py` como mínimo.
+### Explicación de Carpetas
+
+**Versionadas en Git:**
+- `addons/` - Contiene tus módulos de Odoo personalizados. Esta carpeta y su contenido están versionados porque representan el código que escribes.
+
+**Generadas Automáticamente por Docker:**
+- `postgres_data/` - Se crea al iniciar el contenedor de PostgreSQL. Almacena la base de datos. No se versiona porque contiene datos locales.
+- `odoo_filestore/` - Se crea al iniciar Odoo. Almacena archivos que los usuarios suben. No se versiona porque es contenido generado en tiempo de ejecución.
+- `odoo_sessions/` - Se crea al iniciar Odoo. Almacena información temporal de sesiones activas. No se versiona porque cambia constantemente.
+
+**Archivo .env:**
+- Se crea localmente desde `.env.example` ejecutando `cp .env.example .env`
+- Contiene contraseñas y configuración local
+- No se versiona en Git (está en `.gitignore`)
 
 ## Gestión de Servicios
 
