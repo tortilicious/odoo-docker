@@ -1,21 +1,44 @@
-# Environment variables (NUNCA subir contraseñas)
+# ============================================================================
+# EXCEPCIONES PRIMERO - Archivos que SÍ queremos rastrear
+# ============================================================================
+# Estos son los archivos clave que mantienen la estructura del proyecto
+# incluso cuando las carpetas están vacías
+!postgres_data/.gitkeep
+!addons/.gitkeep
+
+# ============================================================================
+# ENVIRONMENT VARIABLES - Credenciales y configuración local
+# ============================================================================
+# NUNCA versionars archivos .env con contraseñas
 .env
 .env.local
 .env.*.local
 
-# Datos de PostgreSQL (son demasiado grandes y regenerables)
-postgres_data/
-!postgres_data/.gitkeep
 
-# Datos de Odoo (también demasiado grandes)
+# ============================================================================
+# DATOS DE CONTENEDORES - Información local del sistema
+# ============================================================================
+# PostgreSQL - Datos de la base de datos (muy grandes, regenerables)
+postgres_data/*
+
+# Odoo - Almacenamiento de archivos subidos por usuarios
 odoo_filestore/
-odoo_sessions/
+odoo_filestore/*
 
-# Archivos de Python
+# Odoo - Información de sesiones de usuarios
+odoo_sessions/
+odoo_sessions/*
+
+# ============================================================================
+# PYTHON - Archivos compilados y entornos virtuales
+# ============================================================================
+# Bytecode compilado
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
+
+# Distribución / empaquetamiento
 .Python
 env/
 venv/
@@ -32,19 +55,89 @@ parts/
 sdist/
 var/
 wheels/
+pip-wheel-metadata/
+share/python-wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+MANIFEST
 
-# IDEs
+
+# ============================================================================
+# IDEs Y EDITORES
+# ============================================================================
+# Visual Studio Code
 .vscode/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# PyCharm / IntelliJ
 .idea/
+*.iml
+*.iws
+*.ipr
+
+# Vim / Neovim
+.vim/
 *.swp
 *.swo
 *~
-.DS_Store
+.netrwhist
 
-# Otros
+# Emacs
+*~
+\#*\#
+.\#*
+
+
+# ============================================================================
+# SISTEMAS OPERATIVOS
+# ============================================================================
+# macOS
 .DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
 Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+
+# ============================================================================
+# LOGS Y ARCHIVOS TEMPORALES
+# ============================================================================
 *.log
+*.log.*
+logs/
+tmp/
+temp/
+*.pid
+
+
+# ============================================================================
+# OTROS
+# ============================================================================
+# Archivos de configuración específica del IDE que no compartimos
+.project
+.pydevproject
+.classpath
+.c9/
+*.sublime-workspace
+
+# Caché de pytest
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Directorios de compilación de Django/Odoo
+*.egg-info/
+.tox/
